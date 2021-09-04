@@ -30,12 +30,12 @@ export const cartSlice = createSlice({
         },
         removeItem: (state, action) => {
 
-            const itemIdx = state.cart.findIndex(item => item.id == action.payload.id);
+            const itemIdx = state.cart.findIndex(item => item.id === action.payload.id);
 
             if (state.cart[itemIdx].quantity === 1) {
-                state.cart.splice(itemIdx);
+                state.cart.splice(itemIdx, 1);
             } else {
-                state.cart[itemIdx].quantity -= 1;
+                state.cart[itemIdx].quantity--;
             }
 
         }
