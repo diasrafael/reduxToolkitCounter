@@ -19,7 +19,7 @@ const Products = (props) => {
 
     fetchData();
 
-  });
+  }, []);
 
   return (
     <section className={classes.products}>
