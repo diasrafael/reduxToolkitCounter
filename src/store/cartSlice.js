@@ -39,21 +39,33 @@ export const cartSlice = createSlice({
             }
 
         },
-        replaceEntireCart: (state, action) => {state.cart = action.payload}
+        replaceEntireCart: (state, action) => { state.cart = action.payload }
     }
 });
 
 export const addItem = (item) => {
     return async (dispatch, getState) => {
         dispatch(cartSlice.actions.addItem(item));
-        fetch('https://redux-toolkit-example-63dda-default-rtdb.firebaseio.com/cart.json', {
-            method: 'PUT',
-            body: JSON.stringify(getState().cart.cart)
-        });
+        postData(getState().cart.cart);
     }
 
 }
 
+export const removeItem = (item) => {
+    return async (dispatch, getState) => {
+        dispatch(cartSlice.actions.removeItem(item));
+        postData(getState().cart.cart);
+    }
+
+}
+
+const postData = (cart) => {
+    fetch('https://redux-toolkit-example-63dda-default-rtdb.firebaseio.com/cart.json', {
+        method: 'PUT',
+        body: JSON.stringify(cart)
+    });
+}
+
 export default cartSlice.reducer;
 
-export const { toggleCart, removeItem, replaceEntireCart } = cartSlice.actions;
+export const { toggleCart, replaceEntireCart } = cartSlice.actions;

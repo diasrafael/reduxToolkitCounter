@@ -15,7 +15,7 @@ function App() {
       const response = await fetch('https://redux-toolkit-example-63dda-default-rtdb.firebaseio.com/cart.json', []);
       if (response.ok) {
         const data = await response.json();
-        dispatch(replaceEntireCart(data));
+        if (data) dispatch(replaceEntireCart(data));
       }
     };
 
