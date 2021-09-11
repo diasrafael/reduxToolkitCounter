@@ -38,10 +38,22 @@ export const cartSlice = createSlice({
                 state.cart[itemIdx].quantity--;
             }
 
-        }
+        },
+        replaceEntireCart: (state, action) => {state.cart = action.payload}
     }
 });
 
+export const addItem = (item) => {
+    return async (dispatch, getState) => {
+        dispatch(cartSlice.actions.addItem(item));
+        fetch('https://redux-toolkit-example-63dda-default-rtdb.firebaseio.com/cart.json', {
+            method: 'PUT',
+            body: JSON.stringify(getState().cart.cart)
+        });
+    }
+
+}
+
 export default cartSlice.reducer;
 
-export const { toggleCart, addItem, removeItem } = cartSlice.actions;
+export const { toggleCart, removeItem, replaceEntireCart } = cartSlice.actions;
